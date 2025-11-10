@@ -9,6 +9,7 @@ module;
 #include <pl/helpers/utils.hpp>
 #include <wolv/utils/string.hpp>
 
+export module pl.cli.utils;
 
 static std::vector<pl::u8> parseByteString(const std::string &string) {
     auto byteString = std::string(string);
@@ -27,7 +28,6 @@ static std::vector<pl::u8> parseByteString(const std::string &string) {
     return result;
 }
 
-export module pl.cli.utils;
 export namespace pl::cli {
     void executePattern(
             PatternLanguage &runtime,
