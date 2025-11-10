@@ -1,9 +1,22 @@
-#include <pl/cli/helpers/info_utils.hpp>
+module;
 
+#include <nlohmann/json.hpp>
+#include <pl/pattern_language.hpp>
 #include <wolv/utils/string.hpp>
 #include <wolv/io/file.hpp>
 
-namespace pl::cli {
+export module pl.cli.info_utils;
+export namespace pl::cli {
+
+    struct PatternMetadata {
+        std::string name;
+        std::string description;
+        std::vector<std::string> authors;
+        std::vector<std::string> mimes;
+        std::string version;
+        
+        nlohmann::json toJSON();
+    };
 
     std::string trimValue(const std::string &string) {
         std::string trimmed = wolv::util::trim(string);

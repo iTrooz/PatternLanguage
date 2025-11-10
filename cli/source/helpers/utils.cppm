@@ -1,31 +1,34 @@
-#include <pl/cli/helpers/utils.hpp>
+module;
 
+#include <pl/pattern_language.hpp>
 #include <wolv/io/file.hpp>
 
+#include <vector>
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 #include <pl/helpers/utils.hpp>
 #include <wolv/utils/string.hpp>
 
-namespace pl::cli {
 
-    static std::vector<pl::u8> parseByteString(const std::string &string) {
-        auto byteString = std::string(string);
-        std::erase(byteString, ' ');
+static std::vector<pl::u8> parseByteString(const std::string &string) {
+    auto byteString = std::string(string);
+    std::erase(byteString, ' ');
 
-        if ((byteString.length() % 2) != 0) return {};
+    if ((byteString.length() % 2) != 0) return {};
 
-        std::vector<pl::u8> result;
-        for (pl::u32 i = 0; i < byteString.length(); i += 2) {
-            if (!std::isxdigit(byteString[i]) || !std::isxdigit(byteString[i + 1]))
-                return {};
+    std::vector<pl::u8> result;
+    for (pl::u32 i = 0; i < byteString.length(); i += 2) {
+        if (!std::isxdigit(byteString[i]) || !std::isxdigit(byteString[i + 1]))
+            return {};
 
-            result.push_back(std::strtoul(byteString.substr(i, 2).c_str(), nullptr, 16));
-        }
-
-        return result;
+        result.push_back(std::strtoul(byteString.substr(i, 2).c_str(), nullptr, 16));
     }
 
+    return result;
+}
+
+export module pl.cli.utils;
+export namespace pl::cli {
     void executePattern(
             PatternLanguage &runtime,
             wolv::io::File &inputFile,

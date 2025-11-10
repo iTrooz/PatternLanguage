@@ -1,16 +1,18 @@
+module;
 #include <pl/pattern_language.hpp>
 #include <pl/formatters.hpp>
 #include <wolv/io/file.hpp>
-
-#include <pl/cli/helpers/utils.hpp>
 
 #include <CLI/CLI.hpp>
 #include <CLI/App.hpp>
 #include <fmt/format.h>
 
+import pl.cli.utils;
+
+export module pl.cli.sub.format;
 namespace pl::cli::sub {
 
-    void addFormatSubcommand(CLI::App *app) {
+    export void addFormatSubcommand(CLI::App *app) {
         static const auto formatters = pl::gen::fmt::createFormatters();
 
         static std::fs::path inputFilePath, outputFilePath, patternFilePath;

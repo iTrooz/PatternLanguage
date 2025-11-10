@@ -1,3 +1,4 @@
+module;
 #include <pl/pattern_language.hpp>
 #include <pl/formatters.hpp>
 #include <wolv/io/file.hpp>
@@ -6,9 +7,10 @@
 #include <CLI/App.hpp>
 #include <fmt/format.h>
 
+export module pl.cli.sub.run;
 namespace pl::cli::sub {
 
-    void addRunSubcommand(CLI::App *app) {
+    export void addRunSubcommand(CLI::App *app) {
         static std::vector<std::fs::path> includePaths;
 
         static std::string formatterName;

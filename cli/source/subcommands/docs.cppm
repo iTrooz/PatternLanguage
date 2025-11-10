@@ -1,3 +1,4 @@
+module;
 #include <pl/pattern_language.hpp>
 #include <pl/core/parser.hpp>
 
@@ -17,6 +18,7 @@
 #include <pl/core/ast/ast_node_union.hpp>
 #include <pl/core/ast/ast_node_lvalue_assignment.hpp>
 
+export module pl.cli.sub.docs;
 namespace pl::cli::sub {
 
     namespace {
@@ -114,7 +116,7 @@ namespace pl::cli::sub {
 
     }
 
-    void addDocsSubcommand(CLI::App *app) {
+    export void addDocsSubcommand(CLI::App *app) {
         static std::vector<std::fs::path> includePaths;
         static std::vector<std::string> defines;
 

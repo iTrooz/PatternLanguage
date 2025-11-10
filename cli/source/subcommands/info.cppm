@@ -1,6 +1,6 @@
+module;
 #include <pl/pattern_language.hpp>
 #include <pl/core/parser.hpp>
-#include <pl/cli/helpers/info_utils.hpp>
 
 #include <wolv/io/file.hpp>
 #include <wolv/utils/string.hpp>
@@ -11,6 +11,9 @@
 
 #include <nlohmann/json.hpp>
 
+import pl.cli.info_utils;
+
+export module pl.cli.sub.info;
 namespace pl::cli::sub {
 
     // Helper method
@@ -76,7 +79,7 @@ namespace pl::cli::sub {
         fmt::print("{}\n", json.dump());
     }
 
-    void addInfoSubcommand(CLI::App *app) {
+    export void addInfoSubcommand(CLI::App *app) {
         static std::vector<std::fs::path> includePaths;
         static std::vector<std::string> defines;
 

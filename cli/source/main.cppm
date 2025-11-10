@@ -1,4 +1,6 @@
-#include <pl/cli/cli.hpp>
+module;
+#include<vector>
+#include<string>
 
 #include <wolv/io/file.hpp>
 
@@ -7,17 +9,14 @@
 
 #include <fmt/format.h>
 
+export module pl.cli.lib;
+export import pl.cli.sub.docs;
+export import pl.cli.sub.format;
+export import pl.cli.sub.info;
+export import pl.cli.sub.run;
+
 // Available subcommands
-namespace pl::cli {
-
-    namespace sub {
-
-        void addFormatSubcommand(CLI::App *app);
-        void addRunSubcommand(CLI::App *app);
-        void addDocsSubcommand(CLI::App *app);
-        void addInfoSubcommand(CLI::App *app);
-
-    }
+export namespace pl::cli {
 
     // Run the pattern language CLI
     // first argument (args[0]) is the subcommand, not the executable name
@@ -64,16 +63,17 @@ namespace pl::cli {
 
         return EXIT_SUCCESS;
     }
-
 }
 
 #if defined (LIBPL_CLI_AS_EXECUTABLE)
-    int main(int argc, char** argv) {
-        std::vector<std::string> args;
-        for (int i = 1; i < argc; i++) {
-            args.push_back(argv[i]);
-        }
 
-        return pl::cli::executeCommandLineInterface(args);
+extern "C++"  int main(int argc, char** argv) {
+    std::vector<std::string> args;
+    for (int i = 1; i < argc; i++) {
+        args.push_back(argv[i]);
     }
+
+    return pl::cli::executeCommandLineInterface(args);
+}
+
 #endif

@@ -1,22 +1,27 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.28)
 project(plcli)
 
 set(CMAKE_CXX_STANDARD 23)
 
 set(PLCLI_SOURCES
-        source/main.cpp
+)
 
-        source/helpers/utils.cpp
-        source/helpers/info_utils.cpp
-
-        source/subcommands/format.cpp
-        source/subcommands/run.cpp
-        source/subcommands/docs.cpp
-        source/subcommands/info.cpp
+set(PLCLI_MODULE_SOURCES
+    source/main.cppm
+    source/helpers/utils.cppm
+    source/helpers/info_utils.cppm
+    source/subcommands/format.cppm
+    source/subcommands/run.cppm
+    source/subcommands/docs.cppm
+    source/subcommands/info.cppm
 )
 
 if (LIBPL_BUILD_CLI_AS_EXECUTABLE)
     add_executable(plcli ${PLCLI_SOURCES})
+    target_sources(plcli PUBLIC
+        FILE_SET mods
+        TYPE CXX_MODULES
+        FILES ${PLCLI_MODULE_SOURCES})
     target_compile_definitions(plcli PRIVATE LIBPL_CLI_AS_EXECUTABLE)
     target_link_libraries(plcli PRIVATE libpl libpl-gen)
 else ()
@@ -34,7 +39,7 @@ endif()
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(plcli PRIVATE -Wall -Wextra -Werror -Wno-unknown-pragmas -Wno-array-bounds)
 endif()
-target_include_directories(plcli PUBLIC include ${CLI11_INCLUDE_DIRS})
+target_include_directories(plcli PUBLIC ${CLI11_INCLUDE_DIRS})
 target_link_libraries(plcli PRIVATE ${CLI11_LIBRARIES} ${NLOHMANN_JSON_LIBRARIES} libwolv libpl_includes libpl-gen ${FMT_LIBRARIES})
 
 if (WIN32)
