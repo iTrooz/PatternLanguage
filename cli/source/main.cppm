@@ -10,10 +10,10 @@ module;
 #include <fmt/format.h>
 
 export module pl.cli.lib;
-export import pl.cli.sub.docs;
-export import pl.cli.sub.format;
-export import pl.cli.sub.info;
-export import pl.cli.sub.run;
+import pl.cli.sub.format;
+import pl.cli.sub.info;
+import pl.cli.sub.run;
+import pl.cli.sub.docs;
 
 // Available subcommands
 export namespace pl::cli {
